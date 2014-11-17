@@ -42,6 +42,134 @@
 						##Security
 						</script>
 					</section>
+					<section data-markdown>
+						<script type="text/template">
+						Some tips get your application secure
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+						Express.js or Node.js ...
+						
+						Does not come with **any** security features
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+						## Tip \#1
+						##Establish good security defaults
+						</script>
+					</section>
+					<section data-markdown	>
+						<script type="text/template">
+						Use Lusca
+						```javascript
+						app.use(lusca.csrf());
+						app.use(lusca.csp({/* ... */}));
+						app.use(lusca.xframe('SAMEORIGIN'));
+						app.use(lusca.p3p('ABCDEF'));
+						app.use(lusca.hsts({ maxAge: 31536000 }));
+						app.use(lusca.xssProtection(true));
+						```
+						or Helmet
+						```javascript
+						app.use(helmet.crossdomain())
+						app.use(helmet.contentSecurityPolicy({/* ... */}));
+						app.use(helmet('sameorigin'));
+						app.use(helmet.hidePoweredBy({ setTo: 'PHP 4.2.0' }));
+						app.use(helmet.hsts({ maxAge: 31536000 }));
+						app.use(helmet.xssFilter({ setOnOldIE: true }));
+						```
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+						## Tip \#2
+						## Know what you require()
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+						Node.js is javascript running on server side.
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+						"``eval`` is Evil"
+
+						avoid depedencies that misuse eval
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+						## Tip \#3
+						## Update your dependencies
+						</script>
+					</section>
+					<section data-markdown>
+						Don't be a victim of a known security vulnerability
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+						Use grunt-nsp-package to scan for vulnerabilities
+
+						<img style="border: 0" src="img/grunt-nsp-package-output.png">
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+						Use retire.js to check for outdated dependencies
+
+						Running with grunt-retire
+
+						<img style="border: 0" src="img/grunt-retire-output.png">
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+						## Tip \#4
+						## Escape everything
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+						XSS sucks.
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+						What i mean by escape:
+
+						This
+
+						<img style="border: 0" src="img/unescaped-html.png">
+
+						appears as
+
+						<img style="border: 0" src="img/unescaped-html-output.png">
+
+						whereas this
+
+						<img style="border: 0" src="img/escaped-html.png">
+
+						appears as
+
+						<img style="border: 0" src="img/escaped-html-output.png">
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+						A persistent or stored XSS is even worse.
+						</script>
+					</section>
+					<section data-markdown style="text-align: left;">
+						<script type="text/template">
+						1. Establish good security defaults with Lusca or Helmet
+						2. Know what you require()
+						3. Scan and update your dependencies with grunt-nsp-package or retire.js
+						4. Escape everything
+						</script>
+					</section>
 				</section>
 				<section>
 					<section data-markdown>
