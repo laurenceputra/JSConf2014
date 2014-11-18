@@ -224,6 +224,50 @@
 						##Code
 						</script>
 					</section>
+					<section data-markdown>
+						<script type="text/template">
+						In `specialization.json`
+
+    {
+        "clothes-main": [
+            {
+                "is": "adult",
+                "when": {
+                    "shopped": ["briefcase", "jewelry", "tie"]
+                },
+            },
+            {
+                "is": "kids",
+                "when": {
+                    "shopped": ["toy", "cartoon", "game"]
+                },
+            }
+        ]
+    }
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+						###Setting the context
+
+						`res.locals`
+
+						####OR
+
+						`res.render(view, model)`
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+						If `res.locals.shopped` contains anyone of the values in `["toy", "cartoon", "game"]`, the partial `clothes-main` will be replaced by `kids`
+						</script>
+					</section>
+
+					<section data-markdown>
+						<script type="text/template">
+						Can be done on both server side and client side rendering
+						</script>
+					</section>
 					<!-- https://github.com/krakenjs/kraken-examples/tree/master/with.specialization -->
 				</section>
 				<section data-markdown>
