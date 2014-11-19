@@ -310,7 +310,28 @@
 						If `res.locals.shopped` contains anyone of the values in `["toy", "cartoon", "game"]`, the partial `clothes-main` will be replaced by `kids`
 						</script>
 					</section>
+					<section data-markdown>
+						<script type="text/template">
+						Let&apos;s see it in action
 
+						<a href="http://jsconfdemo.herokuapp.com/" target="_blank">http://jsconfdemo.herokuapp.com/</a>
+
+						<a href="http://jsconfdemo.herokuapp.com/setSpcl/tie" target="_blank">Tie</a>
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+						###Updating the session
+
+    req.session.type = req.params.type;
+
+						###Actual Code
+
+    var model = new IndexModel();
+    model.shopped = req.session.type;
+    res.render('index', model);
+						</script>
+					</section>
 					<section data-markdown>
 						<script type="text/template">
 						Can be done on both server side and client side rendering
