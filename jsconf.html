@@ -282,13 +282,13 @@
             {
                 "is": "chrome",
                 "when": {
-                    "shopped": ["google"]
+                    "prefer": ["google"]
                 }
             },
             {
                 "is": "firefox",
                 "when": {
-                    "shopped": ["mozilla"]
+                    "prefer": ["mozilla"]
                 }
             }
         ]
@@ -308,7 +308,7 @@
 					</section>
 					<section data-markdown>
 						<script type="text/template">
-						If `res.locals.shopped` contains anyone of the values in `["toy", "cartoon", "game"]`, the partial `clothes-main` will be replaced by `kids`
+						If `res.locals.prefer` contains the value `mozilla`, the partial `browsers` will be replaced by `firefox`
 						</script>
 					</section>
 					<section data-markdown>
