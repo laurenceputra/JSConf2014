@@ -75,11 +75,16 @@
 						```javascript
 						app.use(helmet.crossdomain())
 						app.use(helmet.contentSecurityPolicy({/* ... */}));
-						app.use(helmet('sameorigin'));
+						app.use(helmet.frameguard('sameorigin'));
 						app.use(helmet.hidePoweredBy({ setTo: 'PHP 4.2.0' }));
 						app.use(helmet.hsts({ maxAge: 31536000 }));
 						app.use(helmet.xssFilter({ setOnOldIE: true }));
 						```
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+						This will get you 80% of the way to being secure
 						</script>
 					</section>
 					<section data-markdown>
@@ -97,7 +102,7 @@
 						<script type="text/template">
 						"``eval`` is Evil"
 
-						avoid depedencies that misuse eval
+						avoid dependencies that misuse eval
 						</script>
 					</section>
 					<section data-markdown>
@@ -111,14 +116,14 @@
 					</section>
 					<section data-markdown>
 						<script type="text/template">
-						Use grunt-nsp-package to scan for vulnerabilities
+						Use **grunt-nsp-package** to scan for vulnerabilities
 
 						<img style="border: 0" src="img/grunt-nsp-package-output.png">
 						</script>
 					</section>
 					<section data-markdown>
 						<script type="text/template">
-						Use retire.js to check for outdated dependencies
+						Use **retire.js** to check for outdated dependencies
 
 						Running with grunt-retire
 
@@ -138,23 +143,53 @@
 					</section>
 					<section data-markdown>
 						<script type="text/template">
-						What i mean by escape:
+						###What i mean by escape:
+						**Unescaped**
 
-						This
+						|  |
+						| --------- |
+						| Code 		| 
+						| <img style="border: 0" src="img/unescaped-html.png"> |
+						| Output 	| 
+						| <img style="border: 0" src="img/unescaped-html-output.png"> |
 
-						<img style="border: 0" src="img/unescaped-html.png">
+						<hr />
 
-						appears as
+						**Escaped**
 
-						<img style="border: 0" src="img/unescaped-html-output.png">
-
-						whereas this
-
-						<img style="border: 0" src="img/escaped-html.png">
-
-						appears as
-
-						<img style="border: 0" src="img/escaped-html-output.png">
+						|  |
+						| --------- |
+						| Code   | 
+						| <img style="border: 0" src="img/escaped-html.png"> |
+						| Output | 
+						| <img style="border: 0" src="img/escaped-html-output.png"> |
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+						###PMO site "hack"
+						Code
+						```html
+						http://www.pmo.gov.sg/content/pmosite/search.html?q=%27%22%2F%3E%3Cdiv+style
+						%3D%22position%3A+absolute%3B+top%3A+80px%3B+left%3A+0px%3B+right%3A+0px%3B+
+						bottom%3A+200px%3B+background-color%3A+black%3B+color%3A+red%3B+background-
+						image%3A+url%28%29%3B+font-size%3A+12p x%3B+text-align%3A+center%3B+padding-
+						top%3A+1px%3B%22%3E%3Cbr%3E%3Cmarquee+behavior%3D%22alternate%22%3E%3Ccenter
+						%3E%3Cfont+color%3D%22red%22+background-color%3D%22black%22%3E%3Ch1%3E~
+						ANONYMOUS+SG+WAS+HERE+BIATCH~%3C%2Fh1%3E%3C%2Ffont%3E%3C%2Fcenter%3E%3Cbr%3E
+						%3Cimg+src%3D%22http%3A%2F%2Fi.imgur.com%2FLtKG7Gt.jpg%22%2F%3E%3Cimg+src%3D
+						%22http%3A%2F%2Fi.imgur.com%2FLmWOvw6.jpg%22%2F%3E%3C%2Fmarquee%3E%3C%2Fdiv%3E
+						```
+						Output
+						```html
+						http://www.pmo.gov.sg/content/pmosite/search.html?q='"/><div style="position: 
+						absolute; top: 80px; left: 0px; right: 0px; bottom: 200px; background-color: 
+						black; color: red; background-image: url(); font-size: 12px; text-align: 
+						center; padding-top: 1px;"><br><marquee behavior="alternate"><center><font 
+						color="red" background-color="black"><h1>~ANONYMOUS SG WAS HERE BIATCH~</h1>
+						</font></center><br><img src="http://i.imgur.com/LtKG7Gt.jpg"/><imgsrc="
+						http://i.imgur.com/LmWOvw6.jpg"/></marquee></div>
+						```
 						</script>
 					</section>
 					<section data-markdown>
@@ -162,11 +197,24 @@
 						A persistent or stored XSS is even worse.
 						</script>
 					</section>
+					<section data-markdown>
+						<script type="text/template">
+						Escape with browser html encoder
+						```javascript
+						function htmlEncode( html ) {
+						    return document.createElement( 'a' )
+									       .appendChild( 
+									           document.createTextNode( html ) 
+									       ).parentNode.innerHTML;
+						};
+						```
+						</script>
+					</section>
 					<section data-markdown style="text-align: left;">
 						<script type="text/template">
 						1. Establish good security defaults with Lusca or Helmet
 						2. Know what you require()
-						3. Scan and update your dependencies with grunt-nsp-package or retire.js
+						3. Scan and update your dependencies with grunt-nsp-package and retire.js
 						4. Escape everything
 						</script>
 					</section>
